@@ -1,9 +1,6 @@
 // Темплейт карточки
 const cardTemplate = document.querySelector('#card-template').content;
 
-// DOM узлы
-const placesContainer = document.querySelector('.places__list');
-
 // Функция создания карточки
 const createNewCard = (data, removeCardFunction) => {
   const newCard = cardTemplate.querySelector('.card').cloneNode(true);
@@ -20,8 +17,6 @@ const createNewCard = (data, removeCardFunction) => {
 const removeCard = (card) => card.remove();
 
 export {
-    cardTemplate,
-    placesContainer,
     createNewCard,
     removeCard
 }
