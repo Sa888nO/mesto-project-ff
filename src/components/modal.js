@@ -8,10 +8,7 @@ const closeModal = (modal) => {
     document.removeEventListener("keydown", closeByEsc);
 }
 
-const closeByEsc = () => {
-    const popups = document.querySelectorAll(".popup");
-    popups.forEach((popup) => popup.classList.contains("popup_is-opened") && closeModal(popup));
-}
+const closeByEsc = (event) => event.key === "Escape" && closeModal(document.querySelector(".popup_is-opened"));
 
 const closeModalByClickOverlay = (event) => event.currentTarget === event.target && closeModal(event.target);
 
