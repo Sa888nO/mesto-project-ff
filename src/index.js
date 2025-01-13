@@ -33,7 +33,6 @@ const addNewCard = (event) => {
 
 const updateProfile = (event) => {
     event.preventDefault()
-    console.log(editProfileForm.elements.name)
     profileTitle.textContent = editProfileForm.elements.name.value;
     profileDescription.textContent = editProfileForm.elements.description.value;
     closeModal(document.querySelector(".popup_is-opened"));
