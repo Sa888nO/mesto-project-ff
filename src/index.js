@@ -4,6 +4,7 @@ import {createNewCard, removeCard, toggleLikeCard} from "./components/card";
 import {openModal, closeModal, closeModalByClickOverlay} from "./components/modal";
 
 // Модальные окна 
+const popups = document.querySelectorAll(".popup");
 const profilePopup = document.querySelector(".popup_type_edit");
 const cardPopup = document.querySelector(".popup_type_new-card");
 const imagePopup = document.querySelector(".popup_type_image");
@@ -76,7 +77,7 @@ editProfileForm.addEventListener("submit", updateProfile);
 
 newCardForm.addEventListener("submit", addNewCard);
 
-[profilePopup ,cardPopup ,imagePopup].forEach(popup => {
+popups.forEach(popup => {
     popup.querySelector(".popup__close").addEventListener("click", () => closeModal(popup));
     popup.addEventListener("click", closeModalByClickOverlay);
     popup.classList.add("popup_is-animated");
