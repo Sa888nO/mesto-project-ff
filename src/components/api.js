@@ -8,11 +8,14 @@ const config = {
 
 const paths = {
     me: config.baseUrl + "/users/me",
-    cards: config.baseUrl + "/cards"
+    meAvatar: config.baseUrl + "/users/me/avatar",
+    cards: config.baseUrl + "/cards",
+    card: (cardID) => config.baseUrl + "/cards/" + cardID,
+    cardLike: (cardID) => config.baseUrl + "/cards/likes/" + cardID,
 }
 
 // Обработчик ответа от сервера
-const handlingResponse = (res) => res.ok ? res.json() : Promise.reject('Статус ошибки: ' + res.status);
+const handlingResponse = (res) => res.ok ? res.json() : Promise.reject("Ошибка: " + res.status);;
 
 // Пишу свою обертку над fetch для предотвращения дублирования кода (установка headers и первичная обработка результата)
 const customFetch = (url, options) => fetch(url, {
@@ -28,10 +31,32 @@ const updateProfile = (name, about) => customFetch(paths.me, {
     body: JSON.stringify({name, about}),
 })
 
+const updateAvatar = (avatar) => customFetch(paths.meAvatar, {
+    method: "PATCH",
+    body: JSON.stringify({avatar})
+})
+
+// Методы карточек
 const getCards = () => customFetch(paths.cards, {method: "GET"})
+
+const createCard = (name, link) => customFetch(paths.cards, {
+    method: "POST",
+    body: JSON.stringify({name, link}),
+})
+
+const deleteCard = (cardID) => customFetch(paths.card(cardID), {method: "DELETE"})
+
+const cardLike = (cardID) => customFetch(paths.cardLike(cardID), {method: "PUT"})
+
+const cardCancelLike = (cardID) => customFetch(paths.cardLike(cardID), {method: "DELETE"})
 
 export {
     getProfile,
     updateProfile,
-    getCards
+    updateAvatar,
+    getCards,
+    createCard,
+    deleteCard,
+    cardLike,
+    cardCancelLike
 }
