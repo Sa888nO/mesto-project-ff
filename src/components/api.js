@@ -19,23 +19,14 @@ const handlingResponse = (res) => res.ok ? res.json() : Promise.reject("Ошиб
 const handlingError = (error) => console.log(error)
 
 // Пишу свою обертку над fetch для предотвращения дублирования кода (установка headers и первичная обработка результата)
-const customFetch = (url, options) => fetch(url, {
-    ...options,
-    headers: config.headers
-})
+const customFetch = (url, options) => fetch(url, {...options, headers: config.headers})
 .then(handlingResponse)
 .catch(handlingError);
 
 // Методы профиля
 const getProfile = () => customFetch(paths.me, {method: "GET"});
-const updateProfile = (name, about) => customFetch(paths.me, {
-    method: "PATCH",
-    body: JSON.stringify({name, about}),
-});
-const updateAvatar = (avatar) => customFetch(paths.meAvatar, {
-    method: "PATCH",
-    body: JSON.stringify({avatar})
-});
+const updateProfile = (name, about) => customFetch(paths.me, {method: "PATCH", body: JSON.stringify({name, about})});
+const updateAvatar = (avatar) => customFetch(paths.meAvatar, {method: "PATCH", body: JSON.stringify({avatar})});
 
 // Методы карточек
 const getCards = () => customFetch(paths.cards, {method: "GET"});
