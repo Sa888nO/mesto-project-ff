@@ -16,12 +16,15 @@ const paths = {
 
 // Обработчик ответа от сервера
 const handlingResponse = (res) => res.ok ? res.json() : Promise.reject("Ошибка: " + res.status);
+const handlingError = (error) => console.log(error)
 
 // Пишу свою обертку над fetch для предотвращения дублирования кода (установка headers и первичная обработка результата)
 const customFetch = (url, options) => fetch(url, {
     ...options,
     headers: config.headers
-}).then(handlingResponse);
+})
+.then(handlingResponse)
+.catch(handlingError);
 
 // Методы профиля
 const getProfile = () => customFetch(paths.me, {method: "GET"});
@@ -39,10 +42,7 @@ const getCards = () => customFetch(paths.cards, {method: "GET"});
 const deleteCard = (cardID) => customFetch(paths.card(cardID), {method: "DELETE"});
 const cardLike = (cardID) => customFetch(paths.cardLike(cardID), {method: "PUT"});
 const cardCancelLike = (cardID) => customFetch(paths.cardLike(cardID), {method: "DELETE"});
-const createCard = (name, link) => customFetch(paths.cards, {
-    method: "POST",
-    body: JSON.stringify({name, link}),
-});
+const createCard = (name, link) => customFetch(paths.cards, {method: "POST", body: JSON.stringify({name, link})});
 
 export {
     getProfile,
