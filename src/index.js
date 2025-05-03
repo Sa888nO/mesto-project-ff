@@ -46,7 +46,13 @@ Promise.all(([getProfile(), getCards()]))
         profileImage.src = profile.avatar;
         profileImage.alt = profile.name;
 
-        cards.forEach(cardData => placesContainer.append(createNewCard(cardData, profile._id, removeCard, toggleLikeCard, openCardImageModal)));
+        cards.forEach(cardData => placesContainer.append(createNewCard({
+            data: cardData,
+            ownerID: profile._id,
+            removeCardFunction: removeCard,
+            toggleLikeCardFunction: toggleLikeCard,
+            openCardImageModalFunction: openCardImageModal
+        })));
     })
     .catch(error => console.error(error))
 
@@ -66,7 +72,13 @@ const addNewCard = (event) => {
     const link = newCardForm.elements.link.value;
     createCardApi(name, link)
         .then(newCardData => {
-            placesContainer.prepend(createNewCard(newCardData, newCardData.owner._id, removeCard, toggleLikeCard, openCardImageModal));
+            placesContainer.prepend(createNewCard({
+                data: newCardData,
+                ownerID: newCardData.owner._id,
+                removeCardFunction: removeCard,
+                toggleLikeCardFunction: toggleLikeCard,
+                openCardImageModalFunction: openCardImageModal
+            }));
             closeModal(cardPopup);
         })
         .catch(error => console.error(error))

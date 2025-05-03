@@ -3,7 +3,14 @@ import {cardLike, cardCancelLike, deleteCard} from "./api";
 const cardTemplate = document.querySelector("#card-template").content;
 
 // Функция создания карточки
-const createNewCard = (data, ownerID, removeCardFunction, toggleLikeCardFunction, openCardImageModalFunction) => {
+const createNewCard = ({
+    data,
+    ownerID,
+    removeCardFunction,
+    toggleLikeCardFunction,
+    openCardImageModalFunction
+}) => {
+    console.log(data)
     const newCard = cardTemplate.querySelector(".card").cloneNode(true)
     const deleteButton = newCard.querySelector(".card__delete-button")
     const likeButton = newCard.querySelector(".card__like-button")
