@@ -7,7 +7,34 @@
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
+  cursor: pointer;
 }
+.profile__image-block {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    position: relative;
+}
+.profile__image-block::before {
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.8) url(../../../images/edit-icon.svg) center no-repeat;
+    z-index: 2;
+    content: '';
+    display: block;
+    width: 120px;
+    height: 120px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    top: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: 0.3s;
+}
+.profile__image-block:hover::before {
+    opacity: 1;
+}
+  
 
 @media screen and (max-width: 740px) {
   .profile__image {
