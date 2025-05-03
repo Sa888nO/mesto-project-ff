@@ -10,7 +10,6 @@ const createNewCard = ({
     toggleLikeCardFunction,
     openCardImageModalFunction
 }) => {
-    console.log(data)
     const newCard = cardTemplate.querySelector(".card").cloneNode(true)
     const deleteButton = newCard.querySelector(".card__delete-button")
     const likeButton = newCard.querySelector(".card__like-button")
