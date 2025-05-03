@@ -22,7 +22,7 @@ const isValid = (popupFormElement, popupInput, config) => {
 const setEventListeners = (popupFormElement, config) => {
     const inputList = Array.from(popupFormElement.querySelectorAll('input'));
     const buttonElement = popupFormElement.querySelector(config.buttonElement);
-    toggleButtonState(inputList, buttonElement);
+    toggleButtonState(inputList, buttonElement, config);
     inputList.forEach((popupInput) => {
         popupInput.addEventListener('input', () => {
             isValid(popupFormElement, popupInput, config);
@@ -35,13 +35,13 @@ const enableValidation = (config) => {
     Array.from(document.querySelectorAll((config.popupFormElement))).forEach((popupFormElement) => setEventListeners(popupFormElement, config));
 };
 
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement, config) => {
     if (inputList.some((input) => !input.validity.valid)) {
         buttonElement.disabled = true;
-        buttonElement.classList.add("popup__button_disabled");
+        buttonElement.classList.add(config.inactiveButtonClass);
     } else {
         buttonElement.disabled = false;
-        buttonElement.classList.remove("popup__button_disabled");
+        buttonElement.classList.remove(config.inactiveButtonClass);
     }
 };
 
@@ -49,16 +49,16 @@ const clearValidation = (popupFormElement, config) => {
     const inputList = Array.from(popupFormElement.querySelectorAll(config.popupInput));
     const buttonElement = popupFormElement.querySelector(config.buttonElement);
     inputList.forEach((popupInput) => hideInputError(popupFormElement, popupInput, config))
-    toggleButtonState(inputList, buttonElement);
+    toggleButtonState(inputList, buttonElement, config);
 };
 
 const config = ({
     popupFormElement: '.popup__form',
     popupInput: '.popup__input',
     buttonElement: '.popup__button',
-    inactiveButtonClass: '.popup__button_disabled',
+    inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'form__input_unvalid',
-    errorClass: 'form__input-error_active'
+    errorClass: 'form__input-error_active',
 });
 
 export {
