@@ -43,6 +43,7 @@ Promise.all(([getProfile(), getCards()]))
 
         cards.forEach(cardData => placesContainer.append(createNewCard(cardData, profile._id, removeCard, toggleLikeCard, openCardImageModal)));
     })
+    .catch(error => console.error(error))
 
 // Заполнение контента модального окна для карточки / функция вызова модального окна
 const openCardImageModal = (name, link) => {
@@ -61,10 +62,10 @@ const addNewCard = (event) => {
     const link = newCardForm.elements.link.value;
     createCardApi(name, link)
         .then(newCardData => {
-            console.log(newCardData, ' new dara')
             placesContainer.prepend(createNewCard(newCardData, newCardData.owner._id, removeCard, toggleLikeCard, openCardImageModal));
             closeModal(cardPopup);
         })
+        .catch(error => console.error(error))
         .finally(() => {
             submitButton.textContent = "Сохранить"
         })
@@ -82,6 +83,7 @@ const updateProfile = (event) => {
             profileDescription.textContent = profile.about;
             closeModal(profilePopup);
         })
+        .catch(error => console.error(error))
         .finally(() => {
             submitButton.textContent = "Сохранить"
         })
@@ -97,12 +99,12 @@ const updateAvatar = (event) => {
             profileImage.src = profile.avatar;
             closeModal(avatarPopup);
         })
+        .catch(error => console.error(error))
         .finally(() => {
             submitButton.textContent = "Сохранить"
         })
 }
 
-// Открыть форму создания карточки предварительно сбросив данные введенные ранее
 profileAddButton.addEventListener("click", () => {
     newCardForm.elements["place-name"].value = "";
     newCardForm.elements.link.value = "";
@@ -110,7 +112,6 @@ profileAddButton.addEventListener("click", () => {
     openModal(cardPopup);
 });
 
-// Открыть и предворительно заполнить форму
 profileEditButton.addEventListener("click", () => {
     editProfileForm.elements.name.value = profileTitle.textContent;
     editProfileForm.elements.description.value = profileDescription.textContent;
@@ -118,8 +119,8 @@ profileEditButton.addEventListener("click", () => {
     openModal(profilePopup);
 });
 
-// Открыть и предворительно заполнить форму
 avatarEditButton.addEventListener("click", () => {
+    editAvatarForm.elements.avatar.value = "";
     clearValidation(editAvatarForm, config);
     openModal(avatarPopup);
 });
