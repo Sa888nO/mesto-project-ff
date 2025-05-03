@@ -33,6 +33,11 @@ const newCardForm = document.forms["new-place"];
 const editProfileForm = document.forms["edit-profile"];
 const editAvatarForm = document.forms["new-avatar"];
 
+// Action кнопки форм
+const newCardSumbitButton = document.forms["new-place"].querySelector('.popup__button');
+const editProfileSumbitButton = document.forms["edit-profile"].querySelector('.popup__button');
+const editAvatarSumbitButton = document.forms["new-avatar"].querySelector('.popup__button');
+
 // Получение данных пользователя и карточек + добавление к карточкам с id пользователя возможности удаления
 Promise.all(([getProfile(), getCards()]))
     .then(([profile, cards]) => {
@@ -56,8 +61,7 @@ const openCardImageModal = (name, link) => {
 
 const addNewCard = (event) => {
     event.preventDefault();
-    const submitButton = newCardForm.querySelector('.popup__button')
-    submitButton.textContent = "Сохранение..."
+    newCardSumbitButton.textContent = "Сохранение..."
     const name = newCardForm.elements["place-name"].value;
     const link = newCardForm.elements.link.value;
     createCardApi(name, link)
@@ -67,14 +71,13 @@ const addNewCard = (event) => {
         })
         .catch(error => console.error(error))
         .finally(() => {
-            submitButton.textContent = "Сохранить"
+            newCardSumbitButton.textContent = "Сохранить"
         })
 }
 
 const updateProfile = (event) => {
     event.preventDefault();
-    const submitButton = newCardForm.querySelector('.popup__button')
-    submitButton.textContent = "Сохранение..."
+    editProfileSumbitButton.textContent = "Сохранение..."
     const name = editProfileForm.elements.name.value
     const about = editProfileForm.elements.description.value
     updateProfileApi(name, about)
@@ -85,14 +88,13 @@ const updateProfile = (event) => {
         })
         .catch(error => console.error(error))
         .finally(() => {
-            submitButton.textContent = "Сохранить"
+            editProfileSumbitButton.textContent = "Сохранить"
         })
 }
 
 const updateAvatar = (event) => {
     event.preventDefault();
-    const submitButton = newCardForm.querySelector('.popup__button')
-    submitButton.textContent = "Сохранение..."
+    editAvatarSumbitButton.textContent = "Сохранение..."
     const avatarUrl = editAvatarForm.elements.avatar.value
     updateAvatarApi(avatarUrl)
         .then(profile => {
@@ -101,7 +103,7 @@ const updateAvatar = (event) => {
         })
         .catch(error => console.error(error))
         .finally(() => {
-            submitButton.textContent = "Сохранить"
+            editAvatarSumbitButton.textContent = "Сохранить"
         })
 }
 
