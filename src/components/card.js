@@ -36,15 +36,20 @@ const removeCard = (cardElement, cardID) => deleteCard(cardID)
 // Функция добавления/удаления лайка карточке
 const toggleLikeCard = (likeButton, cardID, cardLikesTotal) => {
     if (likeButton.classList.contains('card__like-button_is-active')) {
-        cardCancelLike(cardID).then(card => {
-            cardLikesTotal.textContent = card.likes.length
-            likeButton.classList.remove("card__like-button_is-active");
-        })}
+        cardCancelLike(cardID)
+            .then(card => {
+                cardLikesTotal.textContent = card.likes.length
+                likeButton.classList.remove("card__like-button_is-active");
+            })
+            .catch(error => console.error(error))
+        }    
     else {
-        cardLike(cardID).then(card => {
-            cardLikesTotal.textContent = card.likes.length
-            likeButton.classList.add("card__like-button_is-active");
-        })
+        cardLike(cardID)
+            .then(card => {
+                cardLikesTotal.textContent = card.likes.length
+                likeButton.classList.add("card__like-button_is-active");
+            })
+            .catch(error => console.error(error))
     }
 }
 
