@@ -16,12 +16,10 @@ const paths = {
 
 // Обработчик ответа от сервера
 const handlingResponse = (res) => res.ok ? res.json() : Promise.reject("Ошибка: " + res.status);
-const handlingError = (error) => console.log(error)
 
 // Пишу свою обертку над fetch для предотвращения дублирования кода (установка headers и первичная обработка результата)
 const customFetch = (url, options) => fetch(url, {...options, headers: config.headers})
 .then(handlingResponse)
-.catch(handlingError);
 
 // Методы профиля
 const getProfile = () => customFetch(paths.me, {method: "GET"});
